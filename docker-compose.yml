@@ -1,0 +1,10 @@
+version: '3.8'
+
+services:
+  web:
+    build: .
+    command: make app-start
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
