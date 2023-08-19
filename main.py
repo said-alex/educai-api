@@ -13,3 +13,18 @@ def get_test_model_acuracy():
 @app.get("/test_model_predict")
 def get_test_model_predict():
     return {"msg": "get_test_model_predict"}
+
+@app.get("/students")
+def get_students():
+    return {
+        "data": [{
+             "name": "John",
+            "courseName": "Matemática",
+        }],
+        "meta": {
+            "monthlyIncome": 1000,
+            "yearlyIncome": 12000,
+            "evasionRiskPercentage": "87",
+            "evationRiskStudentsCount": 3769,
+        },
+    }
