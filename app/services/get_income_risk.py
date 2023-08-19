@@ -1,9 +1,11 @@
 from datetime import datetime
+from fastapi import Depends
+
 from app.repositories.in_memory.students_repository import InMemoryStudentsRepository
 
 class GetIncomeRisk:
-    def __init__(self):
-        self.student_repo = InMemoryStudentsRepository()
+    def __init__(self, student_repo = Depends(InMemoryStudentsRepository)):
+        self.student_repo = student_repo
 
     def get_risk(self):
         students_in_dropout = self.student_repo.get_students_in_dropout()
