@@ -1,6 +1,7 @@
 from fastapi import Depends
 
-from app.repositories.in_memory.students_repository import InMemoryStudentsRepository
+from app.repositories.mongodb.student_repository import MongoDBStudentRepository
+
 
 class StudentsInDropout:
     def __init__(self, name: str, course_name: str):
@@ -8,7 +9,7 @@ class StudentsInDropout:
         self.curse_name = course_name
 
 class GetDroupoutStudents:
-    def __init__(self, student_repo = Depends(InMemoryStudentsRepository)):
+    def __init__(self, student_repo = Depends(MongoDBStudentRepository)):
         self.student_repo = student_repo
 
     def get_students(self):

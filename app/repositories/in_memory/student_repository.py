@@ -3,7 +3,7 @@ from uuid import UUID, uuid4
 from app.domain.entities.course import Course
 from app.domain.entities.student import Student
 
-class InMemoryStudentsRepository:
+class InMemoryStudentRepository:
     def __init__(self):
         self._students = [
             Student(

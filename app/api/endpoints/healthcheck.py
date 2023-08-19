@@ -3,5 +3,5 @@ from fastapi import APIRouter
 router = APIRouter()
 
 @router.get("/")
-def read_root():
+def ping():
     return {"message": "pong"}
