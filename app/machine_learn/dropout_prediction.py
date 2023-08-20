@@ -22,11 +22,11 @@ class DropoutPrediction:
 
     def predict(self, data: List[PredictParams]) -> list:
         to_predict = {
-            'Desempenho Academico': [performance for performance in map(lambda x: x.performance, data)],
-            'Frequencia': [attendance for attendance in map(lambda x: x.attendance, data)],
-            'Engajamento': [engagement for engagement in map(lambda x: x.engagement, data)],
-            'Adimplencia': [payment_status for payment_status in map(lambda x: x.payment_status, data)],
-            'Renda': [income for income in map(lambda x: x.income, data)]
+            'performance': [performance for performance in map(lambda x: x.performance, data)],
+            'attendance': [attendance for attendance in map(lambda x: x.attendance, data)],
+            'engagement': [engagement for engagement in map(lambda x: x.engagement, data)],
+            'payment_status': [payment_status for payment_status in map(lambda x: x.payment_status, data)],
+            'income': [income for income in map(lambda x: x.income, data)]
         }
 
         to_transform = pd.DataFrame(to_predict)

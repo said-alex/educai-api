@@ -28,7 +28,10 @@ class ClassifyStudents:
         predictions = self.dropout_prediction.predict(params)
 
         for i in range(len(students)):
-            students[i].dropout = predictions[i]
+            if predictions[i] == 3:
+                students[i].dropout = True
+            else:
+                students[i].dropout = False
 
         self.student_repo.update_many(students)
         return students
