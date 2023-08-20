@@ -3,26 +3,23 @@ from fastapi import APIRouter, Depends, Response
 from app.services.get_dropout_students import GetDroupoutStudents
 from app.services.get_income_risk import GetIncomeRisk
 from app.services.student_notifier import StudentNotifier
+from app.api.models.dropout_metrics import DropoutMetrics
+from app.api.models.dropout_metrics_by_category import DropoutMetricsByCategory
 
 router = APIRouter()
 
-
-@router.get("/")
-async def get_students_stats(
-        get_dropout_students: GetDroupoutStudents = Depends(
-            GetDroupoutStudents),
-        get_income_risk: GetIncomeRisk = Depends(GetIncomeRisk)):
-
-    evationRiskStudentsCount, evasionRiskPercentage = get_dropout_students.get_stats()
-    monthly_income, yearly_income = get_income_risk.get_risk()
-
+@router.get("/dropout_metrics", response_model=DropoutMetrics, tags=["students"])
+def get_dropout_metrics(
+    get_dropout_students: GetDroupoutStudents = Depends(),
+    get_income_risk: GetIncomeRisk = Depends()
+):
+    dropoutRiskStudentsCount, dropoutRiskPercentage = get_dropout_students.get_stats()
+    monthlyRevenueInRisk, yearlyRevenueInRisk = get_income_risk.get_risk()
     return {
-        "monthlyIncome": monthly_income,
-        "yearlyIncome": yearly_income,
-        "evasionRiskPercentage": evasionRiskPercentage,
-        "evationRiskStudentsCount": evationRiskStudentsCount,
+        "dropoutRiskPercentage": dropoutRiskPercentage,
+        "monthlyRevenueInRisk": monthlyRevenueInRisk,
+        "yearlyRevenueInRisk": yearlyRevenueInRisk
     }
-
 
 @router.post("/notify", status_code=204, response_class=Response)
 async def notify(student_notifier: StudentNotifier = Depends(StudentNotifier)):

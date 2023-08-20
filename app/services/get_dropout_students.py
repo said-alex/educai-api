@@ -7,7 +7,6 @@ class StudentsInDropout:
     def __init__(self, name: str):
         self.name = name
 
-
 class GetDroupoutStudents:
     def __init__(self, student_repo=Depends(MongoDBStudentRepository)):
         self.student_repo = student_repo
