@@ -40,10 +40,15 @@ class MongoDBStudentRepository:
                 {"_id": student["_id"]}, {"$set": {"dropout": student["dropout"], "cluster": student["cluster"]}})
 
     def count_students_by_category(self, category: str) -> int:
-        if category not in ["income", "payment_status", "engagement", "attendance", "performance"]:
+        if category not in ["engagement", "performance"]:
             raise ValueError(f"Invalid category: {category}")
 
+        mapping_cluster = {
+            "engagement": 2,
+            "performance": 4
+        }
+
         count = self.database.students.count_documents(
-            {category: {"$exists": True, "$ne": None}})
+            {"cluster": mapping_cluster[category]})
 
         return count
