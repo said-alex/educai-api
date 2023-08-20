@@ -15,6 +15,21 @@ class StudentModel:
         self.payment_status = data["payment_status"]
         self.income = data["income"]
 
+    @staticmethod
+    def from_entity(student: Student):
+        return StudentModel({
+            "_id": student.id,
+            "name": student.name,
+            "dropout": student.dropout,
+            "monthly_income": student.monthly_income,
+            "course": CourseModel.from_entity(student.course).to_dict(),
+            "performance": student.performance,
+            "attendance": student.attendance,
+            "engagement": student.engagement,
+            "payment_status": student.payment_status,
+            "income": student.income
+        })
+
     def to_entity(self):
         return Student(
             id=self.id,
@@ -28,3 +43,23 @@ class StudentModel:
             payment_status=self.payment_status,
             income=self.income
         )
+
+    def to_dict(self):
+        return {
+            "_id": self.id,
+            "name": self.name,
+            "dropout": self.get_bool_dropout(self.dropout),
+            "monthly_income": self.monthly_income,
+            "course": CourseModel(self.course).to_dict(),
+            "performance": self.performance,
+            "attendance": self.attendance,
+            "engagement": self.engagement,
+            "payment_status": self.payment_status,
+            "income": self.income
+        }
+
+    def get_bool_dropout(self, dropout):
+        if dropout == 0:
+            return True
+        else:
+            return False

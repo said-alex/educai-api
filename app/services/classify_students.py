@@ -17,17 +17,19 @@ class ClassifyStudents:
     def classify(self):
         students = self.student_repo.get_all_students()
 
-        for student in students:
-            predict = self.dropout_prediction.predict(
-                attendance=student.attendance,
-                engagement=student.engagement,
-                payment_status=student.payment_status,
-                income=student.income,
-                performance=student.performance
-            )
+        params = [PredictParams(
+            student.performance,
+            student.attendance,
+            student.engagement,
+            student.payment_status,
+            student.income
+        ) for student in students]
 
-            student.dropout = predict
+        predictions = self.dropout_prediction.predict(params)
 
-            self.student_repo.update(student)
+        for i in range(len(students)):
+            print(predictions[i])
+            students[i].dropout = predictions[i]
 
+        self.student_repo.update_many(students)
         return students

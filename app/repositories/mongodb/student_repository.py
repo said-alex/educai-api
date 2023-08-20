@@ -31,19 +31,10 @@ class MongoDBStudentRepository:
     def count_students(self) -> int:
         return self.database.students.count_documents({})
 
-    def update(self, student: Student):
-        student_dict = {
-            "_id": student.id,
-            "name": student.name,
-            "dropout": student.dropout,
-            "monthly_income": student.monthly_income,
-            "course": {"name": student.course.name},
-            "performance": student.performance,
-            "attendance": student.attendance,
-            "engagement": student.engagement,
-            "payment_status": student.payment_status,
-            "income": student.income
-        }
+    def update_many(self, students: List[Student]):
+        students_dict = list(map(lambda student: StudentModel.from_entity(
+            student).to_dict(), students))
 
-        self.database.students.update_one(
-            {"_id": student.id}, {"$set": student_dict}, upsert=True)
+        for student in students_dict:
+            self.database.students.update_one(
+                {"_id": student["_id"]}, {"$set": {"dropout": student["dropout"]}})
