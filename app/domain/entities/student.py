@@ -6,7 +6,7 @@ class Student:
             self,
             id: str,
             name: str,
-            course: Course,
+            email: str,
             dropout: bool = False,
             monthly_income: float = 0.0,
             performance: int = 0,
@@ -16,7 +16,7 @@ class Student:
             income: int = 0):
         self.id = id
         self.name = name
-        self.course = course
+        self.email = email
         self.dropout = dropout
         self.monthly_income = monthly_income
         self.performance = performance

@@ -28,7 +28,6 @@ class ClassifyStudents:
         predictions = self.dropout_prediction.predict(params)
 
         for i in range(len(students)):
-            print(predictions[i])
             students[i].dropout = predictions[i]
 
         self.student_repo.update_many(students)

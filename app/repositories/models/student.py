@@ -1,14 +1,13 @@
 from app.domain.entities.student import Student
-from app.repositories.models.course import CourseModel
 
 
 class StudentModel:
     def __init__(self, data):
         self.id = data["_id"]
         self.name = data["name"]
+        self.email = data["email"]
         self.dropout = data["dropout"]
         self.monthly_income = data["monthly_income"]
-        self.course = data["course"]
         self.performance = data["performance"]
         self.attendance = data["attendance"]
         self.engagement = data["engagement"]
@@ -20,9 +19,9 @@ class StudentModel:
         return StudentModel({
             "_id": student.id,
             "name": student.name,
+            "email": student.email,
             "dropout": student.dropout,
             "monthly_income": student.monthly_income,
-            "course": CourseModel.from_entity(student.course).to_dict(),
             "performance": student.performance,
             "attendance": student.attendance,
             "engagement": student.engagement,
@@ -34,9 +33,9 @@ class StudentModel:
         return Student(
             id=self.id,
             name=self.name,
+            email=self.email,
             dropout=self.dropout,
             monthly_income=self.monthly_income,
-            course=CourseModel(self.course).to_entity(),
             performance=self.performance,
             attendance=self.attendance,
             engagement=self.engagement,
@@ -48,9 +47,9 @@ class StudentModel:
         return {
             "_id": self.id,
             "name": self.name,
+            "email": self.email,
             "dropout": self.get_bool_dropout(self.dropout),
             "monthly_income": self.monthly_income,
-            "course": CourseModel(self.course).to_dict(),
             "performance": self.performance,
             "attendance": self.attendance,
             "engagement": self.engagement,
