@@ -51,7 +51,7 @@ class StudentModel:
             "_id": self.id,
             "name": self.name,
             "email": self.email,
-            "dropout": self.get_bool_dropout(self.dropout),
+            "dropout": self.dropout,
             "monthly_income": self.monthly_income,
             "performance": self.performance,
             "attendance": self.attendance,
@@ -60,9 +60,3 @@ class StudentModel:
             "income": self.income,
             "cluster": self.cluster
         }
-
-    def get_bool_dropout(self, dropout):
-        if dropout == 0:
-            return True
-        else:
-            return False

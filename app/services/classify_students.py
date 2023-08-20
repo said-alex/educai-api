@@ -32,9 +32,15 @@ class ClassifyStudents:
                 students[i].dropout = True
             else:
                 students[i].dropout = False
+                students[i].cluster = -1
 
-        students_to_clustering = [
-            student for student in students if student.dropout == True]
+        self.student_repo.update_many(students)
+
+        students_to_clustering = []
+        for student in students:
+            if student.dropout:
+                print(student.name, student.dropout)
+                students_to_clustering.append(student)
 
         params = [PredictParams(
             student.performance,
@@ -47,7 +53,7 @@ class ClassifyStudents:
         clustering = self.dropout_prediction.clustering(params)
 
         for i in range(len(students_to_clustering)):
-            students[i].cluster = clustering[i]
+            students_to_clustering[i].cluster = clustering[i]
 
         self.student_repo.update_many(students)
 
