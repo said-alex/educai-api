@@ -13,7 +13,8 @@ class Student:
             attendance: int = 0,
             engagement: int = 0,
             payment_status: int = 0,
-            income: int = 0):
+            income: int = 0,
+            cluster: int = 0,):
         self.id = id
         self.name = name
         self.email = email
@@ -24,6 +25,7 @@ class Student:
         self.engagement = engagement
         self.payment_status = payment_status
         self.income = income
+        self.cluster = cluster
 
     def __eq__(self, other):
         if not isinstance(other, Student):

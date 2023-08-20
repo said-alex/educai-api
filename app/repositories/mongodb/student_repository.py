@@ -37,12 +37,13 @@ class MongoDBStudentRepository:
 
         for student in students_dict:
             self.database.students.update_one(
-                {"_id": student["_id"]}, {"$set": {"dropout": student["dropout"]}})
+                {"_id": student["_id"]}, {"$set": {"dropout": student["dropout"], "cluster": student["cluster"]}})
 
     def count_students_by_category(self, category: str) -> int:
         if category not in ["income", "payment_status", "engagement", "attendance", "performance"]:
             raise ValueError(f"Invalid category: {category}")
 
-        count = self.database.students.count_documents({category: {"$exists": True, "$ne": None}})
+        count = self.database.students.count_documents(
+            {category: {"$exists": True, "$ne": None}})
 
         return count

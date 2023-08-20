@@ -13,6 +13,7 @@ class StudentModel:
         self.engagement = data["engagement"]
         self.payment_status = data["payment_status"]
         self.income = data["income"]
+        self.cluster = data["cluster"]
 
     @staticmethod
     def from_entity(student: Student):
@@ -26,7 +27,8 @@ class StudentModel:
             "attendance": student.attendance,
             "engagement": student.engagement,
             "payment_status": student.payment_status,
-            "income": student.income
+            "income": student.income,
+            "cluster": student.cluster
         })
 
     def to_entity(self):
@@ -40,7 +42,8 @@ class StudentModel:
             attendance=self.attendance,
             engagement=self.engagement,
             payment_status=self.payment_status,
-            income=self.income
+            income=self.income,
+            cluster=self.cluster
         )
 
     def to_dict(self):
@@ -54,7 +57,8 @@ class StudentModel:
             "attendance": self.attendance,
             "engagement": self.engagement,
             "payment_status": self.payment_status,
-            "income": self.income
+            "income": self.income,
+            "cluster": self.cluster
         }
 
     def get_bool_dropout(self, dropout):
