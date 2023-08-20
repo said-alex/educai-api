@@ -5,10 +5,11 @@ from app.services.get_income_risk import GetIncomeRisk
 
 router = APIRouter()
 
+
 @router.get("/")
 async def get_students(
-    get_dropout_students = Depends(GetDroupoutStudents), 
-    get_income_risk = Depends(GetIncomeRisk)):
+        get_dropout_students=Depends(GetDroupoutStudents),
+        get_income_risk=Depends(GetIncomeRisk)):
 
     students, evasionRiskPercentage = get_dropout_students.get_students()
     monthly_income, yearly_income = get_income_risk.get_risk()
